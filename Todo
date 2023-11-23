@@ -36,6 +36,11 @@ Todo:
     - a report in which the project groups document their solution. The report should be a maximum of 6 pages plus references using this conference paper format: https://drive.google.com/file/d/0BxJRy96AHCJxaUEwOFhwUExmX00/view?resourcekey=0-RvwJqDVrZVijbkkifLWoYA
     - The report should also contain a link to your project code Github repository. Among the files in the repository should be a jupyter notebook that ideally should recreate the main results of your report. If some of your data is confidential then use some shareable data instead. 
     - For MSc students, please also include your poster in the submission. 
+
+- Optional:
+    - Explore possible gene visualizations:
+        - https://github.com/moshi4/pyCirclize
+        - https://pypi.org/project/pygenomeviz/
         
 
 
