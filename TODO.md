@@ -14,8 +14,8 @@
 
 ## Todo:
 - [ ] Make train and test set balanced by tissue using "gtex_tissue_path"
-    - [ ] Challenge: You probably need to do stratified training, ensuring batches have samples from all tissues.
-    - [ ] Opportunity: For your test-set, you should set aside all samples for a couple of tissues to test how the model generalizes to unseen tissues but also a proportion of samples from all samples to test for differences between seen and unseen tissues.
+    - Challenge: You probably need to do stratified training, ensuring batches have samples from all tissues.
+    - Opportunity: For your test-set, you should set aside all samples for a couple of tissues to test how the model generalizes to unseen tissues but also a proportion of samples from all samples to test for differences between seen and unseen tissues.
 - [ ] Make PCA as baseline using the small gene file "gtex_gene_path"
     - [ ] Make PCA on this file
     - [ ] Make a model that using the PCA most representative data predicts isoforms in file "gtex_isoform_path"
@@ -41,7 +41,7 @@
     - [ ] The report should also contain a link to your project code GitHub repository. Among the files in the repository should be a Jupyter notebook that ideally should recreate the main results of your report. If some of your data is confidential, then use some shareable data instead.
     - [ ] For MSc students, please also include your poster in the submission.
 
-- Answers and questions:
+## Answers and questions:
     - Q: How should the isoform expressions be interpreted?
     - A: The higher the number the more there was of that RNA molecule within the cell
     - Q: What is the unit of the numbers?
@@ -49,7 +49,7 @@
     - Q: Furthermore, should the determination of isoform expressions be a classification problem or regression problem?
     - A: Regression problem. We want to predict the log2(TPM) values.
 
-- [ ] Optional:
+## Optional:
     - [ ] Explore possible gene visualizations:
         - [ ] [pyCirclize](https://github.com/moshi4/pyCirclize)
         - [ ] [pygenomeviz](https://pypi.org/project/pygenomeviz/)
