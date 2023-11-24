@@ -42,16 +42,16 @@
     - [ ] For MSc students, please also include your poster in the submission.
 
 ## Answers and questions:
-    - Q: How should the isoform expressions be interpreted?
-    - A: The higher the number the more there was of that RNA molecule within the cell
-    - Q: What is the unit of the numbers?
-    - A: Log2( TPM +1). TPM: Transcript Per Million. TPM is the normalization method that makes the numbers compariable across isoforms and samples.
-    - Q: Furthermore, should the determination of isoform expressions be a classification problem or regression problem?
-    - A: Regression problem. We want to predict the log2(TPM) values.
+- Q: How should the isoform expressions be interpreted?
+- A: The higher the number the more there was of that RNA molecule within the cell
+- Q: What is the unit of the numbers?
+- A: Log2( TPM +1). TPM: Transcript Per Million. TPM is the normalization method that makes the numbers compariable across isoforms and samples.
+- Q: Furthermore, should the determination of isoform expressions be a classification problem or regression problem?
+- A: Regression problem. We want to predict the log2(TPM) values.
 
 ## Optional:
-    - [ ] Explore possible gene visualizations:
-        - [ ] [pyCirclize](https://github.com/moshi4/pyCirclize)
-        - [ ] [pygenomeviz](https://pypi.org/project/pygenomeviz/)
+- [ ] Explore possible gene visualizations:
+    - [ ] [pyCirclize](https://github.com/moshi4/pyCirclize)
+    - [ ] [pygenomeviz](https://pypi.org/project/pygenomeviz/)
 
 
