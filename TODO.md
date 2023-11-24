@@ -13,6 +13,9 @@
 
 
 ## Todo:
+- [x] Explore data
+    - [x] Explore datasets
+    - [x] Try some vizualizations
 - [ ] Make train and test set balanced by tissue using "gtex_tissue_path"
     - Challenge: You probably need to do stratified training, ensuring batches have samples from all tissues.
     - Opportunity: For your test-set, you should set aside all samples for a couple of tissues to test how the model generalizes to unseen tissues but also a proportion of samples from all samples to test for differences between seen and unseen tissues.
