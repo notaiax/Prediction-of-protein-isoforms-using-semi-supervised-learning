@@ -23,6 +23,7 @@
     - [ ] Make PCA on this file
     - [ ] Make a model that using the PCA most representative data predicts isoforms in file "gtex_isoform_path"
 - [ ] Make a VAE:
+    - [ ] Adapt DataLoader to use the load_data_chunk function, or use hd5 files if faster
     - [ ] Train the latent space:
         - [ ] Start by using a subsample of "archs4_path" or "gtex_gene_path"
             - [ ] Make a latent space of 100 values to start, so we go from 18k values to 100
