@@ -56,3 +56,6 @@ venv_2/
 
 __pycache__/
 MNIST/
+
+*.err
+*.out
