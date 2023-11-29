@@ -50,4 +50,9 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,jupyternotebooks
 
+# Virtual environments
 .venv
+venv_2/
+
+__pycache__/
+MNIST/
