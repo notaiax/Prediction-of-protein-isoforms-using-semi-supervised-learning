@@ -24,8 +24,8 @@
 #BSUB -N 
 ### -- Specify the output and error file. %J is the job-id -- 
 ### -- -o and -e mean append, -oo and -eo mean overwrite -- 
-#BSUB -o pca_2.out 
-#BSUB -e pca_2.err 
+#BSUB -o tissue_labels.out 
+#BSUB -e tissue_labels.err 
 
 # here follow the commands you want to execute with input.in as the input file
 # bsub < pca.sh
@@ -37,4 +37,4 @@ module load numpy/1.24.3-python-3.11.4-openblas-0.3.23
 module load matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
 module load scipy/1.10.1-python-3.11.4
 
-python pca.py
+python tissue_labels.py
