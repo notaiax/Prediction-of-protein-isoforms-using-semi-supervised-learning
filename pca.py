@@ -6,55 +6,67 @@ from matplotlib.pyplot import plot, savefig
 
 gtex_gene_path = "/dtu-compute/datasets/iso_02456/gtex_gene_expression_norm_transposed.tsv.gz"
 
-"""
+
 def load_data_chunk(filename, chunk_size):
     # Load a chunk of data from a gzipped TSV file.
-    return pd.read_csv(filename, sep='\t', compression='gzip', chunksize=chunk_size)
+    return pd.read_csv(filename, sep='\t', compression='gzip', chunksize=chunk_size, header=None)
 
-X = next(load_data_chunk(gtex_gene_path, chunk_size=10000)).iloc[1:, 1:].to_numpy()
+X = next(load_data_chunk(gtex_gene_path, chunk_size=1000)).iloc[:, :].to_numpy()
+
 """
-
 def load_data(filename):
     # Load a chunk of data from a gzipped TSV file.
     return pd.read_csv(filename, sep='\t', compression='gzip')
 
 X = load_data(gtex_gene_path).iloc[:, 1:].to_numpy()
-
-#X = X[:,1:]
+"""
+print(X[0:2,0:2])
+"""
 N = X.shape[0]
-print(f"X.dtype: {X.dtype}")
+print("--------------------------------------")
+
 print(f"X.shape: {X.shape}")
-#print(X[-1,:])
 
 Y = X - np.ones((N, 1))*X.mean(0)
-print(f"Y.dtype: {Y.dtype}")
 print(f"Y.shape: {Y.shape}")
-print(Y[-1,:])
-"""
-stds = np.std(Y,0)
-print(np.min(stds))
-print(np.argmin(stds))
-"""
-Y = Y*(1/np.std(Y,0))
-print(f"Y.dtype: {Y.dtype}")
-print(f"Y.shape: {Y.shape}")
-print(Y[-1,:])
 
-U,S,Vh = svd(Y,full_matrices=False)
+Y = Y*(1/np.std(Y,0))
+print(f"Y.shape: {Y.shape}")
+
+U,S,Vh = svd(X,full_matrices=False)
 V = Vh.T    
-print(f"V.dtype: {V.dtype}")
+
 print(f"V.shape: {V.shape}")
+print(f"S.shape: {S.shape}")
+print(f"U.shape: {U.shape}")
+
 Z = Y @ V
-print(f"Z.dtype: {Z.dtype}")
 print(f"Z.shape: {Z.shape}")
-"""
-print(Z)
-plot(Z[:,0],Z[:,1], "b.")
-savefig("plot.png")
 
 # Compute variance explained by principal components
 rho = (S*S) / (S*S).sum()
 
+# Convert to pandas DataFrame
+#df = pd.DataFrame(Z, columns=['Column1', 'Column2', 'Column3'])
+Z_df = pd.DataFrame(Z)
+
+# Save to CSV
+# Save to TSV
+Z_df.to_csv('Z.tsv.gz', sep='\t', index=False, compression="gzip")
+
+rho_df = pd.DataFrame(rho)
+
+# Save to CSV
+# Save to TSV
+rho_df.to_csv('rho.tsv.gz', sep='\t', index=False, compression="gzip")
+"""
+"""
+print(Z)
+plot(Z[:,0],Z[:,1], "b.")
+savefig("plot.png")
+"""
+
+"""
 # Plot variance explained
 plt.figure()
 plt.plot(range(1,len(rho)+1),rho,'x-')

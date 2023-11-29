@@ -24,10 +24,12 @@
 #BSUB -N 
 ### -- Specify the output and error file. %J is the job-id -- 
 ### -- -o and -e mean append, -oo and -eo mean overwrite -- 
-#BSUB -o pca%J.out 
-#BSUB -e pca%J.err 
+#BSUB -o pca.out 
+#BSUB -e pca.err 
 
 # here follow the commands you want to execute with input.in as the input file
+# bsub < pca.sh
+# bstat
 source .venv/bin/activate
 module load python3/3.11.4
 module load pandas/2.0.2-python-3.11.4

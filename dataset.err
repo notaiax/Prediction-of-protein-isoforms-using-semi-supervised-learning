@@ -1,0 +1,325 @@
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Traceback (most recent call last):
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/dataset.py", line 21, in <module>
+    torch.save(torch.tensor(X[i,:]), sample_path)
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/.venv/lib/python3.11/site-packages/torch/serialization.py", line 618, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/.venv/lib/python3.11/site-packages/torch/serialization.py", line 492, in _open_zipfile_writer
+    return container(name_or_buffer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/.venv/lib/python3.11/site-packages/torch/serialization.py", line 463, in __init__
+    super().__init__(torch._C.PyTorchFileWriter(self.name))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Parent directory tensors does not exist.
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Traceback (most recent call last):
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/dataset.py", line 21, in <module>
+    torch.save(torch.tensor(X[i,:]), sample_path)
+               ^^^^^^^^^^^^^^^^^^^^
+TypeError: can't convert np.ndarray of type numpy.object_. The only supported types are: float64, float32, float16, complex64, complex128, int64, int32, int16, int8, uint8, and bool.
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Traceback (most recent call last):
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/dataset.py", line 21, in <module>
+    torch.save(torch.tensor(X[i,1:]), sample_path)
+               ^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't convert np.ndarray of type numpy.object_. The only supported types are: float64, float32, float16, complex64, complex128, int64, int32, int16, int8, uint8, and bool.
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Traceback (most recent call last):
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/dataset.py", line 21, in <module>
+    torch.save(torch.tensor(X[i,1:]), sample_path)
+               ^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't convert np.ndarray of type numpy.object_. The only supported types are: float64, float32, float16, complex64, complex128, int64, int32, int16, int8, uint8, and bool.
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Traceback (most recent call last):
+  File "/appl/pandas/2.0.2-numpy-1.24.3-python-3.11.4/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3652, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: (0, 0)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/dataset.py", line 21, in <module>
+    sample_path = "tensors/" + str(X[i,0])
+                                   ~^^^^^
+  File "/appl/pandas/2.0.2-numpy-1.24.3-python-3.11.4/lib/python3.11/site-packages/pandas/core/frame.py", line 3761, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/appl/pandas/2.0.2-numpy-1.24.3-python-3.11.4/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3654, in get_loc
+    raise KeyError(key) from err
+KeyError: (0, 0)
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/dataset.py", line 27
+    """
+    ^
+SyntaxError: unterminated triple-quoted string literal (detected at line 27)
+Loaded dependency [python3/3.11.4]: gcc/12.3.0-binutils-2.40
+Loaded dependency [python3/3.11.4]: sqlite3/3.42.0
+Loaded module: python3/3.11.4
+
+Loading python3/3.11.4
+  Loading requirement: gcc/12.3.0-binutils-2.40 sqlite3/3.42.0
+Loaded dependency [numpy/1.24.3-python-3.11.4-openblas-0.3.23]: openblas/0.3.23
+Loaded dependency [pandas/2.0.2-python-3.11.4]: numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded module: pandas/2.0.2-python-3.11.4
+
+Loading pandas/2.0.2-python-3.11.4
+  Loading requirement: openblas/0.3.23
+    numpy/1.24.3-python-3.11.4-openblas-0.3.23
+Loaded dependency [matplotlib/3.7.1-numpy-1.24.3-python-3.11.4]: scipy/1.10.1-python-3.11.4
+Loaded module: matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+
+Loading matplotlib/3.7.1-numpy-1.24.3-python-3.11.4
+  Loading requirement: scipy/1.10.1-python-3.11.4
+Loaded module: cuda/12.2.2
+Traceback (most recent call last):
+  File "/zhome/ec/4/183935/Prediction-of-protein-isoforms-using-semi-supervised-learning/dataset.py", line 24, in <module>
+    torch.save(torch.tensor(X[i,1:]), sample_path)
+               ^^^^^^^^^^^^^^^^^^^^^
+TypeError: can't convert np.ndarray of type numpy.object_. The only supported types are: float64, float32, float16, complex64, complex128, int64, int32, int16, int8, uint8, and bool.
