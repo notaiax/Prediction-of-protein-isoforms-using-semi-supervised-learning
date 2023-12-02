@@ -29,6 +29,10 @@
             - [X] Make a latent space of 100 values to start, so we go from 18k values to 100
         - [X] Using the big file for gene "archs4_path"
         - [X] We can use a combination of "archs4_path" and "gtex_gene_path"
+    - [ ] Improve VAE:
+        - We can see that our model generates genes with values that are wither 0 or 1, while a real gene have values that go from 0 to 14. Further steps include:
+            - [ ] Checking that model architecture is correct
+            - [ ] Improve model by augmenting latent space and epochs.
     - [ ] Fix loss becoming NaN:
         - [X] Check there's no NaN values on input
         - [X] Add custom initialization to avoid NaN init values
