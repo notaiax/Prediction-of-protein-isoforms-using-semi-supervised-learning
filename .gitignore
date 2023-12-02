@@ -53,6 +53,7 @@ Temporary Items
 # Virtual environments
 .venv
 venv_2/
+venv_iso/
 
 __pycache__/
 MNIST/

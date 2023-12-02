@@ -23,12 +23,32 @@
     - [ ] Make PCA on this file
     - [ ] Make a model that using the PCA most representative data predicts isoforms in file "gtex_isoform_path"
 - [ ] Make a VAE:
-    - [ ] Adapt DataLoader to use the load_data_chunk function, or use hd5 files if faster
-    - [ ] Train the latent space:
-        - [ ] Start by using a subsample of "archs4_path" or "gtex_gene_path"
-            - [ ] Make a latent space of 100 values to start, so we go from 18k values to 100
-        - [ ] Using the big file for gene "archs4_path"
-        - [ ] We can use a combination of "archs4_path" and "gtex_gene_path"
+    - [X] Adapt DataLoader to use the load_data_chunk function, or use hd5 files if faster
+    - [X] Train the latent space:
+        - [X] Start by using a subsample of "archs4_path" or "gtex_gene_path"
+            - [X] Make a latent space of 100 values to start, so we go from 18k values to 100
+        - [X] Using the big file for gene "archs4_path"
+        - [X] We can use a combination of "archs4_path" and "gtex_gene_path"
+    - [ ] Improve VAE:
+        - We can see that our model generates genes with values that are wither 0 or 1, while a real gene have values that go from 0 to 14. Further steps include:
+            - [ ] Checking that model architecture is correct
+            - [ ] Improve model by augmenting latent space and epochs.
+    - [ ] Fix loss becoming NaN:
+        - [X] Check there's no NaN values on input
+        - [X] Add custom initialization to avoid NaN init values
+            - [X] Try Kaiming
+        - [X] Make learning rate smaller
+            - [X] From 1e-3 to 1e-4
+            - [ ] From 1e-3 to 1e-5
+        - Note: Adding small learning rate and kaiming solved the issues for most executions, but still getting NaN loss sometimes
+        - [ ] Add gradient clipping 
+        - [ ] Check paper to see if I'm missing sth: https://arxiv.org/pdf/1406.5298.pdf
+        - [ ] Review the Loss and ELBO Computation: Make sure that the computation of the loss function, especially the ELBO, is correct. Check for potential sources of numerical instability, such as logarithms of zero or negative values.
+        - [ ] Batch Size: Sometimes, the choice of batch size can affect training stability. If your batch size is too small, it might lead to higher variance in the gradient updates. If it's too large, it might cause memory issues or affect the model's ability to generalize.
+        - [ ] Check that data is correctly normalized
+        - [ ] Regularization Techniques: Employ regularization techniques like dropout or weight decay to prevent overfitting and improve model stability.
+        - [ ] Simplify model or train less data to see if problem persists, and then gradually scale up once we have a stable base model.
+- [ ] Make a DNN:
     - [ ] Train the model that uses the latent space of the genes VAE to predict isoforms
         - [ ] Use the latent space of "gtex_gene_path" combined with "gtex_isoform_path" that contains the prediction results (or isoform values)
         - [ ] The model should be able to predict 150k float values, one for each isoform, using the 100 (or the number we choose) values from the latent space.

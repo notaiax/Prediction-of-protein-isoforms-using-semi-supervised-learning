@@ -5,3 +5,5 @@ seaborn
 scikit-learn
 requests
 tqdm
+h5py
+nbconvert
