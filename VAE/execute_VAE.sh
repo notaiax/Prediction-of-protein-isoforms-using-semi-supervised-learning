@@ -22,8 +22,8 @@
 #BSUB -N
 ### -- Specify the output and error file. %J is the job-id --
 ### -- -o and -e mean append, -oo and -eo mean overwrite --
-#BSUB -o gpu_%J.out
-#BSUB -e gpu_%J.err
+#BSUB -o execute.out
+#BSUB -e execute.err
 # -- end of LSF options --
 
 #BSUB -R "select[gpu32gb]"
