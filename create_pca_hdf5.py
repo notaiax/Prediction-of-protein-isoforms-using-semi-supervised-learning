@@ -40,12 +40,12 @@ if __name__ == "__main__":
     output_path = "/dtu-compute/datasets/iso_02456/hdf5/"
 
     # Convert archs4_gene_expression to hdf5 format
-    csv_filename = 'pca.tsv.gz'
-    hdf5_filename = 'pca.hdf5'
+    csv_filename = 'pca_data.tsv.gz'
+    hdf5_filename = 'pca_data.hdf5'
 
     print("Counting rows and columns in:", csv_filename)
     #n_rows, n_cols = csv_count_rows_cols(csv_filename)
-    n_rows, n_cols = 17357, 2000
+    n_rows, n_cols = 17357, 2001
     print(f"\t(n_rows, n_cols) = ({n_rows}, {n_cols})")
 
     f_pca = h5py.File(hdf5_filename, mode='w')

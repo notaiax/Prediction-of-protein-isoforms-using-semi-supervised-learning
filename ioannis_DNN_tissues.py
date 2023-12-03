@@ -30,7 +30,7 @@ from collections import Counter
 ###############################################################
 # IMPORT GENE AND ISOFORM FILES
 ###############################################################
-
+"""
 class GtexDataset(torch.utils.data.Dataset):
     def __init__(self):
         f_gtex_gene = h5py.File('/dtu-compute/datasets/iso_02456/hdf5/gtex_gene_expression_norm_transposed.hdf5', mode='r')
@@ -144,7 +144,7 @@ train_loader = DataLoader(train_dataset, batch_size=64, sampler = sampler)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)  # Usually, shuffling is not needed for testing
 
 print("done")
-
+"""
 ###############################################################
 # PCA LOADING
 ###############################################################
@@ -154,7 +154,7 @@ print("done")
 
 class PCADataset(torch.utils.data.Dataset):
     def __init__(self, num_comp_pca):
-        f_gtex_pca = h5py.File('pca.hdf5', mode='r')
+        f_gtex_pca = h5py.File('pca_data.hdf5', mode='r')
         f_gtex_isoform = h5py.File('/dtu-compute/datasets/iso_02456/hdf5/gtex_isoform_expression_norm_transposed.hdf5', mode='r')
 
         self.dset_isoform = f_gtex_isoform['expressions']
@@ -240,6 +240,12 @@ print("Loading data...")
 # Load the entire and subset dataset
 num_comp_pca = 100
 PCA_full_data = PCADataset(num_comp_pca)
+print(PCA_full_data)
+slice_pca, slice_iso = PCA_full_data[:5]
+print(slice_pca)
+print(slice_iso)
+print(len(slice_pca))
+print(len(slice_pca[0]))
 subsample_size = 0.3
 list_excluding_tissues = ["Ovary","Stomach",'Thyroid', 'Kidney - Medulla']
 test_size = 0.15
