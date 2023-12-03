@@ -30,6 +30,9 @@
         - [X] Using the big file for gene "archs4_path"
         - [X] We can use a combination of "archs4_path" and "gtex_gene_path"
     - [ ] Improve VAE:
+        - [ ] Standarize data to be between 0 and 1:
+            - [ ] Search for max value in dataset or max level expression possible
+            - [ ] Divide by it while loading data
         - We can see that our model generates genes with values that are wither 0 or 1, while a real gene have values that go from 0 to 14. Further steps include:
             - [ ] Checking that model architecture is correct
             - [ ] Improve model by augmenting latent space and epochs.
