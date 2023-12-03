@@ -1,0 +1,4 @@
+here follow the commands you want to execute with input.in as the input file
+
+bsub < execute_VAE.sh
+bstat
