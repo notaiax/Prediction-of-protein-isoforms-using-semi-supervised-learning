@@ -350,7 +350,7 @@ print(f">> Using device: {device}")
 
 
 # define the models, evaluator and optimizer
-num_epochs = 3 # 100
+num_epochs = 100 # 100
 latent_features = 500
 
 train_losses = []
@@ -367,9 +367,6 @@ optimizer = torch.optim.Adam(vae.parameters(), lr=1e-4)
 # define dictionary to store the training curves
 training_data = defaultdict(list)
 validation_data = defaultdict(list)
-
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print(f">> Using device: {device}")
 
 vae = vae.to(device)
 
