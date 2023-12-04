@@ -43,6 +43,7 @@
         - [X] Make learning rate smaller
             - [X] From 1e-3 to 1e-4
             - [ ] From 1e-3 to 1e-5
+        - According to teacher probably the solution is making LR smaller, we can also plot the loss and see if it's too big if it makes big jumps. However, changing Bernoulli to LogNormal and LR=1e-4 solved the issue, we also removed Kaiming. 
         - Note: Adding small learning rate and kaiming solved the issues for most executions, but still getting NaN loss sometimes
         - [ ] Add gradient clipping 
         - [ ] Check paper to see if I'm missing sth: https://arxiv.org/pdf/1406.5298.pdf
