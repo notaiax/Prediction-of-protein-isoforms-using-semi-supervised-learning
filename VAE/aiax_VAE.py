@@ -68,6 +68,10 @@ def create_data_loaders(data_dir, batch_size, train_percent=0.8, load_in_mem=Fal
     return train_dataloader, test_dataloader
 
 def plot_line(tensor, line_width=1.0):
+    # Check if the tensor is a GPU tensor and move it to CPU if necessary
+    if tensor.is_cuda:
+        tensor = tensor.cpu()
+    
     # Convert the Torch tensor to a NumPy array
     numeric_array = tensor.detach().numpy() if isinstance(tensor, torch.Tensor) else tensor
 
