@@ -67,7 +67,7 @@ def create_data_loaders(data_dir, batch_size, train_percent=0.8, load_in_mem=Fal
 
     return train_dataloader, test_dataloader
 
-def plot_line(tensor, line_width=1.0):
+def plot_line(tensor, ax, line_width=1.0):
     # Check if the tensor is a GPU tensor and move it to CPU if necessary
     if tensor.is_cuda:
         tensor = tensor.cpu()
@@ -75,13 +75,10 @@ def plot_line(tensor, line_width=1.0):
     # Convert the Torch tensor to a NumPy array
     numeric_array = tensor.detach().numpy() if isinstance(tensor, torch.Tensor) else tensor
 
-    plt.figure(figsize=(15, 5))
-    plt.plot(numeric_array, linewidth=line_width)
-    plt.title('Gene Expression Profile')
-    plt.xlabel('Gene Index')
-    plt.ylabel('Expression Level')
-    plt.show()
-
+    ax.plot(numeric_array, linewidth=line_width)
+    ax.set_title('Gene Expression Profile')
+    ax.set_xlabel('Gene Index')
+    ax.set_ylabel('Expression Level')
 
 def plot_and_save_losses(losses_dict, file_name):
     """
@@ -545,18 +542,6 @@ reconstructed_data.shape
 
 # In[29]:
 
-
-import matplotlib.pyplot as plt
-import torch
-
-def plot_line(tensor, ax, line_width=1.0):
-    # Convert the Torch tensor to a NumPy array
-    numeric_array = tensor.detach().numpy() if isinstance(tensor, torch.Tensor) else tensor
-
-    ax.plot(numeric_array, linewidth=line_width)
-    ax.set_title('Gene Expression Profile')
-    ax.set_xlabel('Gene Index')
-    ax.set_ylabel('Expression Level')
 
 # Create a figure with multiple subplots
 fig, axs = plt.subplots(4, 1, figsize=(15, 20))  # 4 rows, 1 column
