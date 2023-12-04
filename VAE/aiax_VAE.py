@@ -454,7 +454,7 @@ plot_and_save_losses(losses_dict, "plots/LossesTrainAndVal.png")
 
 
 # Save the model to a file
-torch.save(vae.state_dict(), 'models/vae_model.pth')
+torch.save(vae.state_dict(), 'models/vae_model_500_latent_3_epoch.pth')
 
 
 # ## Evaluate model
