@@ -4,17 +4,15 @@ from scipy.linalg import svd
 import matplotlib as plt
 from matplotlib.pyplot import plot, savefig
 
-gtex_gene_path = "/dtu-compute/datasets/iso_02456/gtex_gene_expression_norm_transposed.tsv.gz"
+gtex_gene_path = "/dtu-compute/datasets/iso_02456/gtex_isoform_expression_norm_transposed.tsv.gz"
 
 X_pd = pd.read_csv(gtex_gene_path, sep = "\t", compression = "gzip", header = None)
 X_np = X_pd.values
-X_id = X_np[1:,0]
-print(X_id)
-X_id_df = pd.DataFrame(X_id)
-X_id_df.to_csv('X_id.tsv.gz', sep='\t', index=False, compression="gzip")
-
-"""
-X_header = ["id"] + list(range(1, 2001))
+#X_id = X_np[1:,0]
+#print(X_id)
+#X_id_df = pd.DataFrame(X_id)
+#X_id_df.to_csv('X_id.tsv.gz', sep='\t', index=False, compression="gzip")
+#X_header = ["id"] + list(range(1, 2001))
 X = X_np[1:,1:]
 X = X.astype(float)
 
@@ -31,11 +29,14 @@ Z = Z[:,:2000]
 print(f"Z.shape: {Z.shape}")
 
 Z_df = pd.DataFrame(Z)
-Z_df.to_csv('Z.tsv.gz', sep='\t', index=False, compression="gzip")
-
+Z_df.to_csv('Z_2.tsv.gz', sep='\t', index=False, compression="gzip")
+"""
 # Compute variance explained by principal components
 rho = (S*S) / (S*S).sum()
 print(rho[:2000])
+
+rho_df = pd.DataFrame(rho)
+rho_df.to_csv('rho.tsv.gz', sep='\t', index=False, compression="gzip")
 
 # Concatenate X_id to the first column of X
 X_combined_1 = np.concatenate((X_id, X), axis=1)
@@ -46,6 +47,4 @@ print(f"X_combined_2.shape: {X_combined_2.shape}")
 X_df = pd.DataFrame(X_combined_2)
 X_df.to_csv('X.tsv.gz', sep='\t', index=False, compression="gzip")
 
-rho_df = pd.DataFrame(rho)
-rho_df.to_csv('rho.tsv.gz', sep='\t', index=False, compression="gzip")
 """
