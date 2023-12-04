@@ -60,3 +60,5 @@ MNIST/
 
 *.err
 *.out
+*.tsv.gz
+*.hdf5

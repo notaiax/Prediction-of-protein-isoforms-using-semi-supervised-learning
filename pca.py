@@ -9,6 +9,11 @@ gtex_gene_path = "/dtu-compute/datasets/iso_02456/gtex_gene_expression_norm_tran
 X_pd = pd.read_csv(gtex_gene_path, sep = "\t", compression = "gzip", header = None)
 X_np = X_pd.values
 X_id = X_np[1:,0]
+print(X_id)
+X_id_df = pd.DataFrame(X_id)
+X_id_df.to_csv('X_id.tsv.gz', sep='\t', index=False, compression="gzip")
+
+"""
 X_header = ["id"] + list(range(1, 2001))
 X = X_np[1:,1:]
 X = X.astype(float)
@@ -43,3 +48,4 @@ X_df.to_csv('X.tsv.gz', sep='\t', index=False, compression="gzip")
 
 rho_df = pd.DataFrame(rho)
 rho_df.to_csv('rho.tsv.gz', sep='\t', index=False, compression="gzip")
+"""
