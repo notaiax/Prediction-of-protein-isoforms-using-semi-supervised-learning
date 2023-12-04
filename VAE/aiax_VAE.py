@@ -18,7 +18,7 @@ import math
 import torch
 from torch import nn, Tensor
 from torch.nn.functional import softplus
-from torch.distributions import Distribution
+from torch.distributions import Distribution, LogNormal
 
 
 from torch.utils.data import Dataset, DataLoader
@@ -78,12 +78,31 @@ def plot_line(tensor, line_width=1.0):
     plt.ylabel('Expression Level')
     plt.show()
 
-# Kaiming initialization
-def initialize_weights(m):
-    if isinstance(m, nn.Linear):
-        torch.nn.init.kaiming_normal_(m.weight)
-        if m.bias is not None:
-            m.bias.data.fill_(0.01)
+
+def plot_and_save_losses(losses_dict, file_name):
+    """
+    Plots the training and validation losses and saves the plot as an image file.
+
+    Parameters:
+    losses_dict (dict): A dictionary where keys are loss types (e.g., 'Training', 'Validation') 
+                        and values are lists of loss values.
+    file_name (str): The name of the file to save the plot.
+    """
+    plt.figure(figsize=(10, 6))
+    
+    for type, losses in losses_dict.items():
+        plt.plot(losses, label=f'{type} Loss')
+    
+    plt.title('Loss per Batch')
+    plt.xlabel('Batch Number')
+    plt.ylabel('Loss')
+    plt.legend()
+    plt.grid(True)
+    
+    # Save the figure
+    plt.savefig(file_name)
+    plt.close()
+
 
 def is_nan(tensor):
     """ Check if a tensor is NaN """
@@ -209,7 +228,6 @@ class VariationalAutoencoder(nn.Module):
 
     def posterior(self, x:Tensor) -> Distribution:
         """return the distribution `q(x|x) = N(z | \mu(x), \sigma(x))`"""
-
         # compute the parameters of the posterior
         h_x = self.encoder(x)
         mu, log_sigma =  h_x.chunk(2, dim=-1)
@@ -227,9 +245,9 @@ class VariationalAutoencoder(nn.Module):
 
     def observation_model(self, z:Tensor) -> Distribution:
         """return the distribution `p(x|z)`"""
-        px_logits = self.decoder(z)
-        px_logits = px_logits.view(-1, *self.input_shape) # reshape the output
-        return Bernoulli(logits=px_logits, validate_args=False)
+        px_params = self.decoder(z)
+        px_params = px_params.view(-1, *self.input_shape) # reshape the output
+        return LogNormal(px_params, 1.0) # Assuming variance of 1
 
 
     def forward(self, x) -> Dict[str, Any]:
@@ -328,14 +346,14 @@ print(f">> Using device: {device}")
 
 
 # define the models, evaluator and optimizer
-num_epochs = 1 # 100
+num_epochs = 3 # 100
 latent_features = 500
+
+train_losses = []
+val_losses = []
 
 # VAE
 vae = VariationalAutoencoder(genes[0].shape, latent_features)
-
-# Kaiming initialization
-vae.apply(initialize_weights)
 
 # Evaluator: Variational Inference
 beta = 1
@@ -352,6 +370,7 @@ print(f">> Using device: {device}")
 vae = vae.to(device)
 
 epoch = 0
+pseudocount = 1e-8
 while epoch < num_epochs:
     epoch += 1
     training_epoch_data = defaultdict(list)
@@ -361,7 +380,12 @@ while epoch < num_epochs:
     for x in train_loader_tqdm:
         x = x.to(device)
 
+        # Avoid LogNormal getting 0 values
+        pseudocount = 1e-8
+        x = x+pseudocount
+
         loss, diagnostics, outputs = vi(vae, x)
+        train_losses.append(loss.item())
 
         # Check if loss is NaN
         if is_nan(loss):
@@ -390,8 +414,10 @@ while epoch < num_epochs:
         test_loader_tqdm = tqdm(test_loader, desc=f"Epoch {epoch}/{num_epochs} [Test]")
         for x in test_loader_tqdm:
             x = x.to(device)
+            x = x+pseudocount
 
             loss, diagnostics, outputs = vi(vae, x)
+            val_losses.append(loss.item())
 
             # Check if loss is NaN
             if is_nan(loss):
@@ -408,6 +434,18 @@ while epoch < num_epochs:
 
         for k, v in validation_epoch_data.items():
             validation_data[k] += [np.mean(validation_epoch_data[k])]
+
+
+# Losses Plot
+
+# In[ ]:
+
+
+losses_dict = {
+    "Training": train_losses,
+    "Validation": val_losses
+}
+plot_and_save_losses(losses_dict, "plots/LossesTrainAndVal.png")
 
 
 # Save and Load model
