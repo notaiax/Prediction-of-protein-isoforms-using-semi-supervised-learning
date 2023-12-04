@@ -347,8 +347,12 @@ print(f">> Using device: {device}")
 
 
 # define the models, evaluator and optimizer
-num_epochs = 100 # 100
+num_epochs = 1 # 100
 latent_features = 500
+
+# Model Name
+model_name = f"lf_{latent_features}_epochs_{num_epochs}"
+print(f"Model: {model_name}")
 
 train_losses = []
 val_losses = []
@@ -443,8 +447,7 @@ losses_dict = {
     "Training": train_losses,
     "Validation": val_losses
 }
-plot_and_save_losses(losses_dict, "plots/LossesTrainAndVal.png")
-
+plot_and_save_losses(losses_dict, f"plots/{model_name}_LossesTrainAndVal.png")
 
 # Save and Load model
 
@@ -452,7 +455,7 @@ plot_and_save_losses(losses_dict, "plots/LossesTrainAndVal.png")
 
 
 # Save the model to a file
-torch.save(vae.state_dict(), 'models/vae_model_500_latent_3_epoch.pth')
+torch.save(vae.state_dict(), f'models/vae_{model_name}.pth')
 
 
 # ## Evaluate model
@@ -499,7 +502,7 @@ plt.title('KL Divergence over Epochs')
 plt.legend()
 
 # Save the figure instead of displaying it
-plt.savefig('plots/ELBO_and_KL_Divergence.png') 
+plt.savefig(f'plots/{model_name}_ELBO_and_KL_Divergence.png') 
 
 
 # In[23]:
@@ -556,7 +559,7 @@ plot_line(genes[1], axs[3], line_width=0.2)
 plt.tight_layout()
 
 # Show the plot
-plt.savefig('plots/GeneratedVsRealGene.png') 
+plt.savefig(f'plots/{model_name}_GeneratedVsRealGene.png') 
 
 
 # We can see that our model generates genes with values that are wither 0 or 1, while a real gene have values that go from 0 to 14. Further steps include checking that model architecture is correct, and improve model by augmenting latent space and epochs.
@@ -577,5 +580,5 @@ plot_line(z[1], axs[1], line_width=1)
 plt.tight_layout()
 
 # Show the plot
-plt.savefig('plots/LatentSpaceVis.png') 
+plt.savefig(f'plots/{model_name}_LatentSpaceVis.png') 
 
