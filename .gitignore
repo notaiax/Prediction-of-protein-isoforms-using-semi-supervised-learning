@@ -63,4 +63,10 @@ MNIST/
 *.tsv.gz
 *.hdf5
 *.csv
+
+
+# Ignore all PNG files
 *.png
+
+# Except for the ones in specific_folder
+!VAE/plots/*.png

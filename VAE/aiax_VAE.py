@@ -364,7 +364,7 @@ print(f">> Using device: {device}")
 
 
 # define the models, evaluator and optimizer
-num_epochs = 2
+num_epochs = 10
 latent_features = 500
 
 # Model Name
