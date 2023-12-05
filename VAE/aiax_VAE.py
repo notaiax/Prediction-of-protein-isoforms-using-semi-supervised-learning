@@ -99,7 +99,7 @@ def plot_and_save_losses(losses_dict, file_name):
     losses_dict (dict): A dictionary where keys are loss types (e.g., 'Training', 'Validation') 
                         and values are lists of loss values.
     """
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(15, 10))
     
     # Use darker blue and red colors
     colors = {
@@ -108,7 +108,7 @@ def plot_and_save_losses(losses_dict, file_name):
     }
     
     for type, losses in losses_dict.items():
-        plt.plot(losses, label=f'{type} Loss', color=colors.get(type, 'black'))
+        plt.plot(losses, label=f'{type} Loss', color=colors.get(type, 'black'), linewidth=.7, alpha=0.9)
     
     plt.title('Loss per Batch')
     plt.xlabel('Batch Number')
