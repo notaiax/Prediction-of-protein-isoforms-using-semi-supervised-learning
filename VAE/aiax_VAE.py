@@ -67,18 +67,24 @@ def create_data_loaders(data_dir, batch_size, train_percent=0.8, load_in_mem=Fal
 
     return train_dataloader, test_dataloader
 
-def plot_line(tensor, ax, line_width=1.0):
-    # Check if the tensor is a GPU tensor and move it to CPU if necessary
-    if tensor.is_cuda:
-        tensor = tensor.cpu()
-    
-    # Convert the Torch tensor to a NumPy array
-    numeric_array = tensor.detach().numpy() if isinstance(tensor, torch.Tensor) else tensor
+def plot_line(tensor, axs, line_width=1.0):
+    # Check if the input is a PyTorch tensor
+    if isinstance(tensor, torch.Tensor):
+        # Check if the tensor is on a CUDA device and move it to CPU if necessary
+        if tensor.is_cuda:
+            tensor = tensor.cpu()
 
-    ax.plot(numeric_array, linewidth=line_width)
-    ax.set_title('Gene Expression Profile')
-    ax.set_xlabel('Gene Index')
-    ax.set_ylabel('Expression Level')
+        # Convert the Torch tensor to a NumPy array
+        numeric_array = tensor.detach().numpy()
+    else:
+        # If it's not a tensor, assume it's already a NumPy array
+        numeric_array = tensor
+
+    # Plotting code remains the same
+    axs.plot(numeric_array, linewidth=line_width)
+    axs.set_title('Gene Expression Profile')
+    axs.set_xlabel('Gene Index')
+    axs.set_ylabel('Expression Level')
 
 def plot_and_save_losses(losses_dict, file_name):
     """
@@ -351,7 +357,7 @@ num_epochs = 1 # 100
 latent_features = 500
 
 # Model Name
-model_name = f"lf_{latent_features}_epochs_{num_epochs}"
+model_name = f"LF_{latent_features}_Epochs_{num_epochs}"
 print(f"Model: {model_name}")
 
 train_losses = []
@@ -581,4 +587,6 @@ plt.tight_layout()
 
 # Show the plot
 plt.savefig(f'plots/{model_name}_LatentSpaceVis.png') 
+
+print("EXECUTION FINISHED WITHOUT PROBLEMS")
 
