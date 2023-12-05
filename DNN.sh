@@ -1,7 +1,7 @@
 #!/bin/sh 
 ### General options 
 ### -- specify queue -- 
-#BSUB -q gpuv100
+#BSUB -q hpc
 ### -- set the job Name -- 
 #BSUB -J DNN
 
@@ -10,12 +10,12 @@
 ### we want to have this on a single node
 #BSUB -R "span[hosts=1]"
 ### we need to request CPU memory, too (note: this is per CPU core)
-##BSUB -R "rusage[mem=32GB]"
-##BSUB -M 32GB
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -M 32GB
 
 ### -- Select the resources: 1 gpu in exclusive process mode --
-#BSUB -gpu "num=1:mode=exclusive_process"
-#BSUB -R "select[gpu32gb]"
+##BSUB -gpu "num=1:mode=exclusive_process"
+##BSUB -R "select[gpu32gb]"
 
 ### -- set walltime limit: hh:mm -- 
 #BSUB -W 24:00 
