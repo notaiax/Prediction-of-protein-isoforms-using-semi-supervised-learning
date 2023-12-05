@@ -19,7 +19,7 @@ class Archs4GeneExpressionDataset(torch.utils.data.Dataset):
 
 
 class GtexDataset(torch.utils.data.Dataset):
-    def __init__(self, data_dir:str, include:str="", exclude:str="", load_in_mem:bool=False):
+    def __init__(self, data_dir:str="/dtu-compute/datasets/iso_02456/hdf5/", include:str="", exclude:str="", load_in_mem:bool=False):
         f_gtex_gene = h5py.File(data_dir + 'gtex_gene_expression_norm_transposed.hdf5', mode='r')
         f_gtex_isoform = h5py.File(data_dir + 'gtex_isoform_expression_norm_transposed.hdf5', mode='r')
 

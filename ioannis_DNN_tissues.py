@@ -2,6 +2,8 @@
 # IMPORT PACKAGES
 ###############################################################
 
+print("Running script")
+
 import torch
 import numpy as np
 import pandas as pd
@@ -26,6 +28,8 @@ import h5py
 import re
 import collections
 from collections import Counter
+import matplotlib.pyplot as plt
+import os
 
 ###############################################################
 # IMPORT GENE AND ISOFORM FILES
@@ -278,7 +282,7 @@ print("done")
 # TRAINING / TESTING
 ###############################################################
 
-NUM_FEATURES = 2000
+NUM_FEATURES = num_comp_pca
 NUM_OUTPUT = 156958
 
 # define network
@@ -287,109 +291,185 @@ class Net(nn.Module):
         super(Net, self).__init__()
 
         activation_fn = nn.ReLU
-        num_hidden = (NUM_FEATURES + NUM_OUTPUT) // 4
+        num_hidden = 40
         self.net = nn.Sequential(
             nn.Linear(NUM_FEATURES, num_hidden),
             activation_fn(),
-            nn.Linear(num_hidden, NUM_OUTPUT),
-            activation_fn()
+            nn.Linear(num_hidden, NUM_OUTPUT)
         )
 
     def forward(self, x):
         return self.net(x)
 
 model = Net()
-# device = torch.device('cuda')  # use cuda or cpu
-# model.to(device)
+
+print(torch.__version__)
+print(torch.version.cuda)
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(f">> Using device: {device}")
+
+model.to(device)
 print(model)
 
 
 loss_fn = nn.MSELoss()
-optimizer = optim.Adam(model.parameters(), lr=1e-2)
+optimizer = optim.Adam(model.parameters(), lr=1e-1)\
+
+"""
+### TESTIG WITH RANDOOM DATA
+# Test the forward pass with dummy data
+example = next(iter(PCA_train_loader))[0]
+print(example.shape)
+out = model(next(iter(PCA_train_loader))[0])
+#out = model(torch.randn(10, NUM_FEATURES, device=device))
+print("Output shape:", out.size())
+print(f"Output values:\n{out.detach().cpu().numpy()}")
+"""
 
 
-# # Test the forward pass with dummy data
-# out = model(torch.randn(2, 3, 32, 32, device=device))
-# print("Output shape:", out.size())
-# print(f"Output logits:\n{out.detach().cpu().numpy()}")
-# print(f"Output probabilities:\n{out.softmax(1).detach().cpu().numpy()}")
+### BASELINE MODEL
+baseline = pd.read_csv("baseline.csv")
+avgs = torch.tensor(baseline["averages"].to_numpy())
 
+### TRAINING / TESTING
 
+num_epochs = 60
+model.train()
+train_losses = []
+test_losses = []
 
+train_losses_baseline = []
+test_losses_baseline = []
 
-# batch_size = 64
-# num_epochs = 10
-# validation_every_steps = 500
+for epoch in range(num_epochs):
+    print(f"epoch number {epoch}")
 
-# step = 0
-# model.train()
+    total_loss = 0
+    total_loss_baseline = 0
+    num_batches = 0
 
-# train_accuracies = []
-# valid_accuracies = []
+    for inputs, targets in PCA_train_loader:
+        print(f"\tbatch number {num_batches}")
+        inputs, targets = inputs.to(device), targets.to(device)
 
-# for epoch in range(num_epochs):
+        # Forward pass, compute gradients, perform one training step.
+        # Your code here!
 
-#     train_accuracies_batches = []
+        # Forward pass.
+        output = model(inputs)
 
-#     for inputs, targets in train_loader:
-#         inputs, targets = inputs.to(device), targets.to(device)
+        # Compute loss.
+        loss = loss_fn(output, targets)
+        print(f"\tloss: {loss}")
 
-#         # Forward pass, compute gradients, perform one training step.
-#         # Your code here!
+        # Clean up gradients from the model.
+        optimizer.zero_grad()
 
-#         # Forward pass.
-#         output = model(inputs)
+        # Compute gradients based on the loss from the current batch (backpropagation).
+        loss.backward()
 
-#         # Compute loss.
-#         loss = loss_fn(output, targets)
+        # Take one optimizer step using the gradients computed in the previous step.
+        optimizer.step()
 
-#         # Clean up gradients from the model.
-#         optimizer.zero_grad()
+        # Increment step counter
+        total_loss += loss
+        total_loss_baseline += loss_fn(avgs.repeat(targets.shape[0], 1), targets)
+        num_batches += 1
 
-#         # Compute gradients based on the loss from the current batch (backpropagation).
-#         loss.backward()
+    train_loss = total_loss / num_batches
+    train_loss_baseline = total_loss_baseline / num_batches
 
-#         # Take one optimizer step using the gradients computed in the previous step.
-#         optimizer.step()
+    print(f"\ttraining loss: {train_loss}")
+    train_losses.append(train_loss)
+    train_losses_baseline.append(train_loss_baseline)
 
-#         # Increment step counter
-#         step += 1
+    """
+    if step % validation_every_steps == 0:
 
-#         # Compute accuracy.
-#         predictions = output.max(1)[1]
-#         train_accuracies_batches.append(accuracy(targets, predictions))
+        # # Append average training accuracy to list.
+        # train_accuracies.append(np.mean(train_accuracies_batches))
 
-#         if step % validation_every_steps == 0:
+        # train_accuracies_batches = []
 
-#             # Append average training accuracy to list.
-#             train_accuracies.append(np.mean(train_accuracies_batches))
+        # Compute accuracies on validation set.
+        valid_accuracies_batches = []
+        total_loss = 0
 
-#             train_accuracies_batches = []
+        with torch.no_grad():
+            model.eval()
+            for inputs, targets in PCA_test_loader:
+                inputs, targets = inputs.to(device), targets.to(device)
+                output = model(inputs)
+                loss = loss_fn(output, targets)
+                total_loss += loss
 
-#             # Compute accuracies on validation set.
-#             valid_accuracies_batches = []
-#             total_loss = 0
+                predictions = output.max(1)[1]
 
-#             with torch.no_grad():
-#                 model.eval()
-#                 for inputs, targets in test_loader:
-#                     inputs, targets = inputs.to(device), targets.to(device)
-#                     output = model(inputs)
-#                     loss = loss_fn(output, targets)
-#                     total_loss += loss
+                # Multiply by len(x) because the final batch of DataLoader may be smaller (drop_last=False).
+                valid_accuracies_batches.append(accuracy(targets, predictions) * len(inputs))
 
-#                     predictions = output.max(1)[1]
+            model.train()
 
-#                     # Multiply by len(x) because the final batch of DataLoader may be smaller (drop_last=False).
-#                     valid_accuracies_batches.append(accuracy(targets, predictions) * len(inputs))
+        # Append average validation accuracy to list.
+        valid_accuracies.append(np.sum(valid_accuracies_batches) / len(test_set))
 
-#                 model.train()
+        print(f"Step {step:<5}   training accuracy: {train_accuracies[-1]}")
+        print(f"             test accuracy: {valid_accuracies[-1]}")
+        print(f"             total loss: {total_loss}")
+    """
 
-#             # Append average validation accuracy to list.
-#             valid_accuracies.append(np.sum(valid_accuracies_batches) / len(test_set))
+    with torch.no_grad():
+        model.eval()
+        total_loss = 0
+        total_loss_baseline = 0
+        num_batches = 0
 
-#             print(f"Step {step:<5}   training accuracy: {train_accuracies[-1]}")
-#             print(f"             test accuracy: {valid_accuracies[-1]}")
-#             print(f"             total loss: {total_loss}")
+        for inputs, targets in PCA_test_loader:
+            print(f"\ttesting batch number {num_batches}")
+            inputs, targets = inputs.to(device), targets.to(device)
+            output = model(inputs)
+            loss = loss_fn(output, targets)
+            print(f"\tloss: {loss}")
+            num_batches += 1
+            
+            total_loss += loss
+            total_loss_baseline += loss_fn(avgs.repeat(targets.shape[0], 1), targets)
 
-# print("Finished training.")
+        test_loss = total_loss / num_batches
+        test_loss_baseline = total_loss_baseline / num_batches
+
+        print(f"\ttesting loss: {test_loss}")
+        test_losses.append(test_loss)
+        test_losses_baseline.append(test_loss_baseline)
+
+        model.train()
+        
+print("Finished training.")
+
+def new_file_name(name: str, extension: str):
+    num = 1
+    files = {f for f in os.listdir('.') if os.path.isfile(f)}
+    while f"{name}_{num}.{extension}" in files:
+        num += 1
+    
+    return f"{name}_{num}.{extension}"
+
+plt.figure()
+plt.plot([e.cpu().detach().numpy() for e in train_losses][2:], label="Train loss")
+plt.plot([e.cpu().detach().numpy() for e in test_losses][2:], label="Test loss")
+plt.plot([e.cpu().detach().numpy() for e in train_losses_baseline][2:], label="Baseline train loss")
+plt.plot([e.cpu().detach().numpy() for e in test_losses_baseline][2:], label="Baseline test loss")
+plt.legend()
+plt.title("Losses")
+plt.xlabel("Epoch")
+plt.ylabel("Mean squared error")
+plt.show()
+fname = new_file_name("loss", "png")
+plt.savefig(fname, dpi=400)
+print(f"Saved loss plot to {fname}")
+
+print(f"Train losses: {train_losses}")
+print(f"Baseline train losses: {train_losses_baseline}")
+print(f"Test losses: {test_losses}")
+print(f"Baseline test losses: {test_losses_baseline}")
