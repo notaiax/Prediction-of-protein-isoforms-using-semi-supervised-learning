@@ -364,8 +364,8 @@ print(f">> Using device: {device}")
 
 
 # define the models, evaluator and optimizer
-num_epochs = 10
-latent_features = 500
+num_epochs = 100
+latent_features = 1000
 
 # Model Name
 model_name = f"LF_{latent_features}_Epochs_{num_epochs}"
