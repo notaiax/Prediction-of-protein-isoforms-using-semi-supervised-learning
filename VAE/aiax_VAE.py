@@ -44,7 +44,12 @@ from sklearn.model_selection import train_test_split
 # ## Helper functions
 
 # In[3]:
+# Define your color dictionary
 
+color_dict = {
+    'red': '#ab0000',   # Dark red
+    'blue': '#0047ab'   # Dark blue
+}
 
 def load_data_chunk(filename, chunk_size=1000):
     """ Load a chunk of data from a gzipped TSV file. """
@@ -88,26 +93,32 @@ def plot_line(tensor, axs, line_width=1.0):
 
 def plot_and_save_losses(losses_dict, file_name):
     """
-    Plots the training and validation losses and saves the plot as an image file.
+    Plots the training and validation losses on the same plot.
 
     Parameters:
     losses_dict (dict): A dictionary where keys are loss types (e.g., 'Training', 'Validation') 
                         and values are lists of loss values.
-    file_name (str): The name of the file to save the plot.
     """
     plt.figure(figsize=(10, 6))
     
+    # Use darker blue and red colors
+    colors = {
+        'Training': color_dict.get('blue'),  # Dark blue
+        'Validation': color_dict.get('red')  # Dark red
+    }
+    
     for type, losses in losses_dict.items():
-        plt.plot(losses, label=f'{type} Loss')
+        plt.plot(losses, label=f'{type} Loss', color=colors.get(type, 'black'))
     
     plt.title('Loss per Batch')
     plt.xlabel('Batch Number')
     plt.ylabel('Loss')
     plt.legend()
     plt.grid(True)
-    
+
     # Save the figure
-    plt.savefig(file_name)
+    plt.savefig(f'{file_name}.png')
+    plt.savefig(f'{file_name}.svg', bbox_inches='tight', transparent="True", pad_inches=0)
     plt.close()
 
 
@@ -353,7 +364,7 @@ print(f">> Using device: {device}")
 
 
 # define the models, evaluator and optimizer
-num_epochs = 1 # 100
+num_epochs = 2
 latent_features = 500
 
 # Model Name
@@ -453,7 +464,7 @@ losses_dict = {
     "Training": train_losses,
     "Validation": val_losses
 }
-plot_and_save_losses(losses_dict, f"plots/{model_name}_LossesTrainAndVal.png")
+plot_and_save_losses(losses_dict, f"plots/{model_name}_LossesTrainAndVal")
 
 # Save and Load model
 
@@ -491,8 +502,8 @@ plt.figure(figsize=(12, 6))
 
 # Plot ELBO
 plt.subplot(1, 2, 1)
-plt.plot(training_data['elbo'], label='Training ELBO', color='blue')
-plt.plot(validation_data['elbo'], label='Validation ELBO', color='red')
+plt.plot(training_data['elbo'], label='Training ELBO', color=color_dict.get('blue'))
+plt.plot(validation_data['elbo'], label='Validation ELBO', color=color_dict.get('red'))
 plt.xlabel('Epochs')
 plt.ylabel('ELBO')
 plt.title('ELBO over Epochs')
@@ -500,8 +511,8 @@ plt.legend()
 
 # Plot KL Divergence
 plt.subplot(1, 2, 2)
-plt.plot(training_data['kl'], label='Training KL Divergence', color='blue')
-plt.plot(validation_data['kl'], label='Validation KL Divergence', color='red')
+plt.plot(training_data['kl'], label='Training KL Divergence', color=color_dict.get('blue'))
+plt.plot(validation_data['kl'], label='Validation KL Divergence', color=color_dict.get('red'))
 plt.xlabel('Epochs')
 plt.ylabel('KL Divergence')
 plt.title('KL Divergence over Epochs')
@@ -509,6 +520,7 @@ plt.legend()
 
 # Save the figure instead of displaying it
 plt.savefig(f'plots/{model_name}_ELBO_and_KL_Divergence.png') 
+plt.savefig(f'plots/{model_name}_ELBO_and_KL_Divergence.svg', bbox_inches='tight', transparent="True", pad_inches=0)
 
 
 # In[23]:
@@ -566,6 +578,8 @@ plt.tight_layout()
 
 # Show the plot
 plt.savefig(f'plots/{model_name}_GeneratedVsRealGene.png') 
+plt.savefig(f'plots/{model_name}_GeneratedVsRealGene.svg', bbox_inches='tight', transparent="True", pad_inches=0)
+
 
 
 # We can see that our model generates genes with values that are wither 0 or 1, while a real gene have values that go from 0 to 14. Further steps include checking that model architecture is correct, and improve model by augmenting latent space and epochs.
@@ -587,6 +601,8 @@ plt.tight_layout()
 
 # Show the plot
 plt.savefig(f'plots/{model_name}_LatentSpaceVis.png') 
+plt.savefig(f'plots/{model_name}_LatentSpaceVis.svg', bbox_inches='tight', transparent="True", pad_inches=0)
+
 
 print("EXECUTION FINISHED WITHOUT PROBLEMS")
 
