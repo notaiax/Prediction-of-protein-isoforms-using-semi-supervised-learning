@@ -72,7 +72,7 @@ def create_data_loaders(data_dir, batch_size, train_percent=0.8, load_in_mem=Fal
 
     return train_dataloader, test_dataloader
 
-def plot_line(tensor, axs, line_width=1.0):
+def plot_line(tensor, axs, title, xlabel, ylabel, line_width=1.0,):
     # Check if the input is a PyTorch tensor
     if isinstance(tensor, torch.Tensor):
         # Check if the tensor is on a CUDA device and move it to CPU if necessary
@@ -87,9 +87,9 @@ def plot_line(tensor, axs, line_width=1.0):
 
     # Plotting code remains the same
     axs.plot(numeric_array, linewidth=line_width)
-    axs.set_title('Gene Expression Profile')
-    axs.set_xlabel('Gene Index')
-    axs.set_ylabel('Expression Level')
+    axs.set_title(title)
+    axs.set_xlabel(xlabel)
+    axs.set_ylabel(ylabel)
 
 def plot_and_save_losses(losses_dict, file_name):
     """
@@ -568,10 +568,11 @@ reconstructed_data.shape
 fig, axs = plt.subplots(4, 1, figsize=(15, 20))  # 4 rows, 1 column
 
 # Plot each line on its respective subplot
-plot_line(reconstructed_data[0], axs[0], line_width=0.2)
-plot_line(genes[0], axs[1], line_width=0.2)
-plot_line(reconstructed_data[1], axs[2], line_width=0.2)
-plot_line(genes[1], axs[3], line_width=0.2)
+plot_line(genes[0], axs[0], title='Original Gene Expression Profile Sample 1', xlabel='Gene Index', ylabel='Expression Level', line_width=0.2)
+plot_line(reconstructed_data[0], axs[1], title='Generated Gene Expression Profile Sample 1', xlabel='Gene Index', ylabel='Expression Level', line_width=0.2)
+plot_line(genes[1], axs[2], title='Original Gene Expression Profile Sample 2', xlabel='Gene Index', ylabel='Expression Level', line_width=0.2)
+plot_line(reconstructed_data[1], axs[3], title='Generated Gene Expression Profile Sample 2', xlabel='Gene Index', ylabel='Expression Level', line_width=0.2)
+
 
 # Adjust layout
 plt.tight_layout()
@@ -593,8 +594,9 @@ plt.savefig(f'plots/{model_name}_GeneratedVsRealGene.svg', bbox_inches='tight', 
 fig, axs = plt.subplots(2, 1, figsize=(15, 10))  # 2 rows, 1 column
 
 # Plot each line on its respective subplot
-plot_line(z[0], axs[0], line_width=1)
-plot_line(z[1], axs[1], line_width=1)
+plot_line(z[0], axs[0], title='Latent Space Sample 1', xlabel='Latent features', ylabel='Expression Level', line_width=1)
+plot_line(z[1], axs[1], title='Latent Space Sample 2', xlabel='Latent features', ylabel='Expression Level', line_width=1)
+
 
 # Adjust layout
 plt.tight_layout()
