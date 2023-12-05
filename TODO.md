@@ -34,9 +34,9 @@
             - [ ] Search for max value in dataset or max level expression possible
             - [ ] Divide by it while loading data
         - We can see that our model generates genes with values that are wither 0 or 1, while a real gene have values that go from 0 to 14. Further steps include:
-            - [ ] Checking that model architecture is correct
-            - [ ] Improve model by augmenting latent space and epochs.
-    - [ ] Fix loss becoming NaN:
+            - [X] Checking that model architecture is correct. We changed Bernoulli for LogNormal
+            - [X] Improve model by augmenting latent space and epochs.
+    - [X] Fix loss becoming NaN:
         - [X] Check there's no NaN values on input
         - [X] Add custom initialization to avoid NaN init values
             - [X] Try Kaiming
@@ -45,6 +45,7 @@
             - [ ] From 1e-3 to 1e-5
         - According to teacher probably the solution is making LR smaller, we can also plot the loss and see if it's too big if it makes big jumps. However, changing Bernoulli to LogNormal and LR=1e-4 solved the issue, we also removed Kaiming. 
         - Note: Adding small learning rate and kaiming solved the issues for most executions, but still getting NaN loss sometimes
+        - Note 2: We removed kaiming and kept LR=1e-4, changing distribution to LogNormal solved the issue.
         - [ ] Add gradient clipping 
         - [ ] Check paper to see if I'm missing sth: https://arxiv.org/pdf/1406.5298.pdf
         - [ ] Review the Loss and ELBO Computation: Make sure that the computation of the loss function, especially the ELBO, is correct. Check for potential sources of numerical instability, such as logarithms of zero or negative values.
