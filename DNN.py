@@ -134,47 +134,65 @@ valid_loaders = []
 test_loaders = []
 
 for model in models:
+
+    train_loaders_fold = []
+    valid_loaders_fold = []
+
+    for fold in range(num_folds):
     
-    full_data = Dataset(model, num_latent_features, num_comp_pca)
+        full_data = Dataset(model, num_latent_features, num_comp_pca)
 
-    ###############################################################
-    # DATASETS
-    ###############################################################
+        ###############################################################
+        # DATASETS
+        ###############################################################
 
-    train_dataset = Subset(full_data, indices = idx_train_list[0])
-    valid_dataset = Subset(full_data, indices = idx_valid_list[0])
+        train_dataset = Subset(full_data, indices = idx_train_list[fold])
+        valid_dataset = Subset(full_data, indices = idx_valid_list[fold])
+
+        ###############################################################
+        # DATALOADERS
+        ###############################################################
+
+        # Balance train_loader
+        tissue_train = [tissues_labels_dict[idx] for idx in idx_train_list[fold]]
+        tissue_train_tensor = torch.tensor(tissue_train)
+        class_counts = torch.bincount(tissue_train_tensor)
+        weights = 1.0 / class_counts[tissue_train]
+        train_sampler = WeightedRandomSampler(weights, len(weights))
+
+        # Dataloaders
+        batch_size = 64
+
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, sampler = train_sampler)
+        valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False)
+
+
+        # Appending
+        train_loaders_fold.append(train_loader)
+        valid_loaders_fold.append(valid_loader)
+        
     test_dataset = Subset(full_data, indices = idx_test)
-
-    ###############################################################
-    # DATALOADERS
-    ###############################################################
-
-    # Balance train_loader
-    tissue_train = [tissues_labels_dict[idx] for idx in idx_train_list[0]]
-    tissue_train_tensor = torch.tensor(tissue_train)
-    class_counts = torch.bincount(tissue_train_tensor)
-    weights = 1.0 / class_counts[tissue_train]
-    train_sampler = WeightedRandomSampler(weights, len(weights))
-
-    # Dataloaders
-    batch_size = 64
-
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, sampler = train_sampler)
-    valid_loader = DataLoader(valid_dataset, batch_size=batch_size, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
     # Appending
 
-    train_loaders.append(train_loader)
-    valid_loaders.append(valid_loader)
+    train_loaders.append(train_loaders_fold)
+    valid_loaders.append(valid_loaders_fold)
     test_loaders.append(test_loader)
+
+print(len(train_loaders))
+print(len(train_loaders[0]))
+print(len(valid_loaders))
+print(len(valid_loaders[0]))
+print(len(test_loaders))
+
 
 ###############################################################
 # TRAINING / VALIDATION
 ###############################################################
 
-NUM_FEATURES = next(iter(train_loaders[0]))[0].shape[1]
-NUM_OUTPUT = next(iter(train_loaders[0]))[1].shape[1]
+NUM_FEATURES = next(iter(train_loaders[1][0]))[0].shape[1]
+NUM_OUTPUT = next(iter(train_loaders[1][0]))[1].shape[1]
 
 # define network
 class Net(nn.Module):
@@ -224,7 +242,7 @@ for epoch in range(num_epochs):
     total_loss_baseline = 0
     num_batches = 0
 
-    for inputs, targets in train_loaders[0]:
+    for inputs, targets in train_loaders[1][0]:
         print(f"\tbatch number {num_batches}")
         inputs, targets = inputs.to(device), targets.to(device)
 
@@ -265,7 +283,7 @@ for epoch in range(num_epochs):
         total_loss_baseline = 0
         num_batches = 0
 
-        for inputs, targets in test_loaders[0]:
+        for inputs, targets in test_loaders[1][0]:
             print(f"\ttesting batch number {num_batches}")
             inputs, targets = inputs.to(device), targets.to(device)
             output = model(inputs)
