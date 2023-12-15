@@ -12,7 +12,7 @@ import numpy as np
 import seaborn as sns
 import pandas as pd
 sns.set_style("whitegrid")
-import requests
+#import requests
 
 import math
 import torch
@@ -364,8 +364,8 @@ print(f">> Using device: {device}")
 
 
 # define the models, evaluator and optimizer
-num_epochs = 100
-latent_features = 1000
+num_epochs = 10
+latent_features = 100
 
 # Model Name
 model_name = f"LF_{latent_features}_Epochs_{num_epochs}"
@@ -375,6 +375,7 @@ train_losses = []
 val_losses = []
 
 # VAE
+print(genes[0].shape)
 vae = VariationalAutoencoder(genes[0].shape, latent_features)
 
 # Evaluator: Variational Inference
@@ -472,7 +473,8 @@ plot_and_save_losses(losses_dict, f"plots/{model_name}_LossesTrainAndVal")
 
 
 # Save the model to a file
-torch.save(vae.state_dict(), f'models/vae_{model_name}.pth')
+#torch.save(vae.state_dict(), f'models/vae_{model_name}.pth')
+torch.save(vae.state_dict(), '´VAE_100_Jav.pth')
 
 
 # ## Evaluate model
