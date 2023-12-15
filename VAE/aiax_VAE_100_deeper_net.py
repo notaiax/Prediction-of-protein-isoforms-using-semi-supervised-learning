@@ -217,7 +217,7 @@ class VariationalAutoencoder(nn.Module):
         self.latent_features = latent_features
         self.observation_features = np.prod(input_shape)
 
-        dropout_rate = 0.5  # Dropout rate
+        dropout_rate = 0.2  # Dropout rate
 
         # Inference Network (Encoder)
         self.encoder = nn.Sequential(
@@ -387,7 +387,7 @@ vae = VariationalAutoencoder(genes[0].shape, latent_features)
 beta = 1
 vi = VariationalInference(beta=beta)
 # The Adam optimizer works really well with VAEs.
-optimizer = torch.optim.Adam(vae.parameters(), lr=1e-4)
+optimizer = torch.optim.Adam(vae.parameters(), lr=1e-6)
 # define dictionary to store the training curves
 training_data = defaultdict(list)
 validation_data = defaultdict(list)

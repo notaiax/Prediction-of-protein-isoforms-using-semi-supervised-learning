@@ -41,8 +41,4 @@ nvidia-smi
 source ../venv_iso/bin/activate
 module swap cuda/12.2.2
 
-<<<<<<< HEAD
 python aiax_VAE_100_deeper_net.py
-=======
-python aiax_VAE.py
->>>>>>> 555bb4c08f049af2fbd900f1ffbebb834d10f1ad
