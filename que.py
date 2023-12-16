@@ -3,23 +3,31 @@ import os
 import subprocess
 
 # USAGE: python que.py [script name] [job name] [cpu memory] ["GPU" if gpu wanted]
+def print_usage():
+    print("USAGE: python que.py [script name] [job name] [cpu memory] ['GPU' if gpu wanted]")
 
 if __name__ == "__main__":
     args = sys.argv
     
+    if len(args) < 2:
+        print("Please provide the name of the script you want to run")
+        print_usage()
+        exit()
     script = args[1]
-    files = {f for f in os.listdir('.') if os.path.isfile(f)}
-    if script not in files:
+    if not os.path.isfile(script):
         print(f"File {script} not found")
+        print_usage()
         exit()
     
     if len(args) < 3:
         print("Please provide a job name")
+        print_usage()
         exit()
     job_name = args[2]
 
     if len(args) < 4:
         print("Please provide the amount of CPU memory you want")
+        print_usage()
         exit()
     memory = args[3]
 
