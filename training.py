@@ -323,7 +323,7 @@ class OuterModelResult:
     min_train_losses: list[Any]
     average_test_loss: Any
 
-average_model_results: dict[ModelInfo, OuterModelResult] = []
+average_model_results = []
 print("Beginning training")
 for model_idx, model_info in enumerate(model_infos):
     # For each model, run 5 folds, and find the average test error
@@ -419,19 +419,19 @@ for model_idx, model_info in enumerate(model_infos):
     average_test_loss = sum(e.test_loss for e in fold_model_results) / NUM_FOLDS
     min_train_losses = min(fold_model_results, key = lambda e: e.test_loss).train_losses
     
-    average_model_results[model_idx] = OuterModelResult(min_train_losses, average_test_loss)
+    average_model_results.append((model_info, OuterModelResult(min_train_losses, average_test_loss)))
 
 
 # Save results
 train_results_dict = {
-    info.model_type: [e.cpu().detach().numpy() for e in result.min_train_losses] for (info, result) in average_model_results.items()
+    info.model_type: [e.cpu().detach().numpy() for e in result.min_train_losses] for (info, result) in average_model_results
 }
 inner_train_loss_file = new_file_name("inner_train_losses", "csv")
 pd.DataFrame(train_results_dict).to_csv(inner_train_loss_file, index=False)
 print(f"Wrote inner train loss to {inner_train_loss_file}")
 
 test_results_dict = {
-    info.model_type: [result.average_test_loss.cpu().detach().numpy()] for (info, result) in average_model_results.items()
+    info.model_type: [result.average_test_loss.cpu().detach().numpy()] for (info, result) in average_model_results
 }
 inner_test_loss_file = new_file_name("inner_test_losses", "csv")
 pd.DataFrame(test_results_dict).to_csv(inner_test_loss_file, index=False)
@@ -441,7 +441,7 @@ print(f"Wrote inner test loss to {inner_test_loss_file}")
 # OUTER TESTING
 ###############################################################
 ### SELECTION
-best_model_info, best_model_results = min(average_model_results.values, key = lambda e: e[1].average_test_loss)
+best_model_info, best_model_results = min(average_model_results, key = lambda e: e[1].average_test_loss)
 print(f"Model {best_model_info.name} had the best performance with an average loss of {best_model_results.average_test_loss}")
 
 best_model = best_model_info.create_model()
