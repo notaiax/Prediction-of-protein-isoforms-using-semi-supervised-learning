@@ -305,51 +305,46 @@ dataloader = DataLoader(dataset, batch_size=64, shuffle=False)
 ###############################################################
 # CREATE NEW DATASET
 ###############################################################
+latent_features = 500
+epochs = 300
+#Row header
+row_header = dataset.row_header
+row_header = [row.decode('utf-8') for row in row_header]
+row_header = np.array(row_header)
+row_header = row_header.reshape(-1, 1)
 
-models = [100, 500]
-epochs = [300, 300]
+#Col header
+col_header = np.hstack((np.array(["id"]), np.arange(latent_features)))
 
-for latent_features, epoch in zip(models, epochs):
+# Load the model from a file
+vae = VariationalAutoencoder(next(iter(dataloader))[1].shape, latent_features) # second parameter is number of latent features that the model whas trained on (backed up model is 100)
+model_directory = "VAE/models/vae_LF_" + str(latent_features) + "_Epochs_" + str(epochs) + ".pth"
+vae.load_state_dict(torch.load(model_directory, map_location=torch.device('cpu')))
 
-    #Row header
-    row_header = dataset.row_header
-    row_header = [row.decode('utf-8') for row in row_header]
-    row_header = np.array(row_header)
-    row_header = row_header.reshape(-1, 1)
+Zs = []
 
-    #Col header
-    col_header = np.hstack((np.array(["id"]), np.arange(latent_features)))
+# Example of making a training set that excludes samples from the brain and a test set with only samples from the brain
+# If you have enough memory, you can load the dataset to memory using the argument load_in_mem=True
 
-    # Load the model from a file
-    vae = VariationalAutoencoder(next(iter(dataloader))[1].shape, latent_features) # second parameter is number of latent features that the model whas trained on (backed up model is 100)
-    model_directory = "VAE/models/vae_LF_" + str(latent_features) + "_Epochs_" + str(epoch) + ".pth"
-    vae.load_state_dict(torch.load(model_directory, map_location=torch.device('cpu')))
+for x in tqdm(dataloader):
+    x = x.to(device)
 
-    Zs = []
+    # Forward pass through the VAE
+    outputs = vae(x)
+    z = outputs['z'].cpu().detach().numpy() # z is the latent space
+    Zs.append(z)
 
-    # Example of making a training set that excludes samples from the brain and a test set with only samples from the brain
-    # If you have enough memory, you can load the dataset to memory using the argument load_in_mem=True
+# Concatenate the list of z values into a single array. Otherwise it separates by batches
+Zs = np.concatenate(Zs, axis=0)
 
-    for x in tqdm(dataloader):
-        x = x.to(device)
+# The shape of Zs will be [total_num_batches * batch_size, latent_features]
+print("Shape of Zs:", Zs.shape)
 
-        # Forward pass through the VAE
-        outputs = vae(x)
-        z = outputs['z'].cpu().detach().numpy() # z is the latent space
-        Zs.append(z)
+Zs = np.hstack((row_header, Zs))
 
-    # Concatenate the list of z values into a single array. Otherwise it separates by batches
-    Zs = np.concatenate(Zs, axis=0)
+print("Shape of Zs:", Zs.shape)
 
-    # The shape of Zs will be [total_num_batches * batch_size, latent_features]
-    print("Shape of Zs:", Zs.shape)
-
-    Zs = np.hstack((row_header, Zs))
-
-    print("Shape of Zs:", Zs.shape)
-
-    Zs_df = pd.DataFrame(Zs, columns = col_header)
-
-    Path("datasets_reduced").mkdir(exist_ok=True)
-    final_model_directory = "datasets_reduced/VAE_" + str(latent_features) + ".tsv.gz"
-    Zs_df.to_csv(final_model_directory, sep='\t', index=False, compression="gzip")
+Zs_df = pd.DataFrame(Zs, columns = col_header)
+Path("datasets_reduced").mkdir(exist_ok=True)
+final_model_directory = "datasets_reduced/VAE_" + str(latent_features) + ".tsv.gz"
+Zs_df.to_csv(final_model_directory, sep='\t', index=False, compression="gzip")
