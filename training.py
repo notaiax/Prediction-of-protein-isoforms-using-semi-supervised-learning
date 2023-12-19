@@ -523,6 +523,6 @@ pd.DataFrame(train_losses, columns=f"{best_model_type} train loss").to_csv(outer
 print(f"Wrote outer train loss to {outer_train_loss_file}")
 
 outer_test_loss_file = new_file_name("outer_test_loss", "txt")
-with open(outer_test_loss_file, "w"):
+with open(outer_test_loss_file, "w") as f:
     f.write(model_average)
 print(f"Wrote outer test loss to {outer_test_loss_file}")
