@@ -63,6 +63,7 @@ MNIST/
 *.tsv.gz
 *.hdf5
 *.csv
+*.txt
 
 
 # Ignore all PNG files

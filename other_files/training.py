@@ -442,7 +442,7 @@ print(f"Wrote inner test loss to {inner_test_loss_file}")
 ###############################################################
 ### SELECTION
 best_model_info, best_model_results = min(average_model_results, key = lambda e: e[1].average_test_loss)
-print(f"Model {best_model_info.name} had the best performance with an average loss of {best_model_results.average_test_loss}")
+print(f"Model {best_model_info.model_type} had the best performance with an average loss of {best_model_results.average_test_loss}")
 
 best_model = best_model_info.create_model()
 best_model = best_model.to(DEVICE)
@@ -525,5 +525,5 @@ print(f"Wrote outer train loss to {outer_train_loss_file}")
 
 outer_test_loss_file = new_file_name("outer_test_loss", "txt")
 with open(outer_test_loss_file, "w") as f:
-    f.write(model_average)
+    f.write(str(model_average))
 print(f"Wrote outer test loss to {outer_test_loss_file}")
