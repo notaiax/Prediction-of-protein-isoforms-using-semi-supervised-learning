@@ -318,7 +318,7 @@ col_header = np.hstack((np.array(["id"]), np.arange(latent_features)))
 
 # Load the model from a file
 vae = VariationalAutoencoder(next(iter(dataloader))[1].shape, latent_features) # second parameter is number of latent features that the model whas trained on (backed up model is 100)
-model_directory = "VAE/models/vae_LF_" + str(latent_features) + "_Epochs_" + str(epochs) + ".pth"
+model_directory = "models/vae_LF_" + str(latent_features) + "_Epochs_" + str(epochs) + ".pth"
 vae.load_state_dict(torch.load(model_directory, map_location=torch.device('cpu')))
 
 Zs = []
